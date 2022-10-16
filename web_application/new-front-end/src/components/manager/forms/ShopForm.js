@@ -3,7 +3,6 @@
  */
 
 import { useContext, useState } from "react";
-import { useHistory } from "react-router-dom";
 import AuthContext from "../../../store/AuthContext";
 
 import "../../../styles/form.css";

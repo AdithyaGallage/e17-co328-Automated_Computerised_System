@@ -3,7 +3,6 @@
  */
 
 import { useContext, useState } from "react";
-import { useHistory } from "react-router-dom";
 
 import "../../../styles/form.css";
 import FormInput from "../../forms/FormInput";

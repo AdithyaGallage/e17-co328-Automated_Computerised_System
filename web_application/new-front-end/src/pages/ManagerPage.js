@@ -1,4 +1,3 @@
-import Production from "../components/factory_manager/Production";
 import ViewProduction from "../components/manager/ViewProduction";
 import Predictions from "../components/manager/Predictions";
 import FailedToShops from "../components/manager/FailedToShops";
@@ -21,16 +20,14 @@ import {
 } from "react-pro-sidebar";
 
 //import icons from react icons
-import { FaList, FaPaperclip, FaRegHeart } from "react-icons/fa";
+import { FaList, FaPaperclip } from "react-icons/fa";
 import {
   FiHome,
   FiLogOut,
   FiArrowLeftCircle,
   FiArrowRightCircle,
-  FiBookOpen
 } from "react-icons/fi";
 import { RiAccountBoxFill, RiAccountCircleFill, RiAdminFill, RiPencilLine } from "react-icons/ri";
-import { BiCog } from "react-icons/bi";
 
 //import sidebar css from react-pro-sidebar module and our custom css
 import "react-pro-sidebar/dist/css/styles.css";

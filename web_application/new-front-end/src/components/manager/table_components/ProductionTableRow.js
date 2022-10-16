@@ -1,9 +1,9 @@
-import React from 'react'
+import React from "react";
 import "../../../styles/table.css";
-import moment from 'moment';
+import moment from "moment";
 
 function ProductionTableRow(props) {
-    const production = props.data;
+  const production = props.data;
   return (
     <React.Fragment>
       <li className="table-row">
@@ -11,7 +11,7 @@ function ProductionTableRow(props) {
           {production.BatchNumber}
         </div>
         <div className="col col-2" data-label="Checked DM">
-          {moment(production.ProductDate).utc().format('YYYY-MM-DD')}
+          {moment(production.ProductDate).format("YYYY-MM-DD")}
         </div>
         <div className="col col-3" data-label="Issued Quantity">
           {production.FactoryProductName}
@@ -21,7 +21,7 @@ function ProductionTableRow(props) {
         </div>
       </li>
     </React.Fragment>
-  )
+  );
 }
 
-export default ProductionTableRow
+export default ProductionTableRow;
