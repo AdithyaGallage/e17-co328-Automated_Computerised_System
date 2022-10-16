@@ -74,6 +74,36 @@ router.get("/errored", auth, async(req, res) => {
 });
 
 /*
+A route to get errored issued products by the manager
+*/
+router.get("/errored-all", auth, async(req, res) => {
+    const fromJwt = req.fromUser;
+    const connection = await databaseConnection.createConnection(fromJwt.jwtUserName, fromJwt.jwtPassWord);
+    const getIssuedProducts = `SELECT 
+        ip.BatchNumber, ip.StoredDate, ip.StoredQuantity, ip.CheckedDMUserName, 
+        fp.Quantity, fp.FactoryProductName, ip.Note
+	    FROM issued_product ip
+        INNER JOIN factory_product fp
+        WHERE ip.BatchNumber = fp.BatchNumber
+        AND ReceivingStatus = 0;`; 
+    try {
+        const [response] = await connection.promise().execute(getIssuedProducts);
+        const token = jwt.sign(
+            {
+                jwtUserName: fromJwt.jwtUserName,
+                jwtPassWord: fromJwt.jwtPassWord,
+                jwtRole: fromJwt.jwtRole
+            },
+            "victa_jwtPrivateKey"
+        );
+        res.header("x-auth-token", token).status(200).send(response);
+    } catch (error) {
+        console.log(error);
+        res.status(400).send("Database failure");
+    }
+});
+
+/*
 A route to remove errored issued products by the company owner 
 */
 router.put("/errored", auth, async(req, res) => {

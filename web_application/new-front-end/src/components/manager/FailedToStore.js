@@ -1,13 +1,45 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
+import AuthContext from "../../store/AuthContext";
 import "../../styles/table.css";
 
 function FailedToStore() {
+  const authCtx = useContext(AuthContext);
+  const [erroredDeliveries, setErroredDeliveries] = useState([]);
+
+  useEffect(() => {
+    let url = "http://localhost:8080/api/issue-product/errored-all";
+    fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "x-auth-token": `${authCtx.token}`,
+      },
+    })
+      .then((res) => {
+        res
+          .text()
+          .then((data) => {
+            console.log(data);
+            const new_arr = JSON.parse(data);
+            setErroredDeliveries(new_arr);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [ authCtx]);
+  console.log(erroredDeliveries);
   return (
     <div className="container">
-      <div style={{display:"flex", justifyContent:"space-evenly"}}>
-        <h2 style={{margin:"0", fontSize:"40px", color:"#0f003c"}}>Unsuccessful deliveries to Store</h2>
+      <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+        <h2 style={{ margin: "0", fontSize: "40px", color: "#0f003c" }}>
+          Unsuccessful deliveries to Store
+        </h2>
       </div>
-      
+
       <ul className="responsive-table">
         <li className="table-header">
           <div className="col col-1">Job Id</div>
